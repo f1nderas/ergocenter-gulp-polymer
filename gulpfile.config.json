@@ -1,0 +1,42 @@
+{
+  "tasks": "./gulp-tasks/",
+  "server": {
+    "server": {
+      "baseDir": "./dist"
+    },
+    "ghostMode": false,
+    "host": "localhost",
+    "open": "local",
+    "port": 8088,
+    "logPrefix": "server"
+  },
+  "app": {
+    "index": "app/index.html",
+    "js": "app/js/index.js",
+    "scss": "app/css/bundle.scss",
+    "images": "app/images/**/*",
+    "plugins": "app/plugins/**/*",
+    "fonts": "app/fonts/**/*"
+  },
+  "dist": {
+    "core": "dist/",
+    "index": "dist/index.html",
+    "html": "dist/",
+    "js": "dist/js/",
+    "css": "dist/css/",
+    "images": "dist/images/",
+    "plugins": "dist/plugins/",
+    "fonts": "dist/fonts",
+    "version": "dist/VERSION"
+  },
+  "inject": {
+    "styles": "./dist/css/*.css",
+    "scripts": "./dist/js/*.js"
+  },
+  "watch": {
+    "index": "app/index.html",
+    "js": ["app/js/**/*.js", "app/js/**/*.es6"],
+    "scss": ["app/css/**/*.scss", "app/css/**/*.css"]
+  },
+  "version": "VERSION"
+}

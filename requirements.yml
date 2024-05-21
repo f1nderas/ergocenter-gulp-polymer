@@ -1,0 +1,3 @@
+- name: mr-dxdy.static-deploy
+  src: https://github.com/mr-dxdy/static-deploy.git
+  version: d72ca3df2d2fe67ca6f95c553c57c36fabd827f1

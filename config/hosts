@@ -1,0 +1,3 @@
+[webservers]
+staging ansible_host=web-staging.orion.org ansible_user=user
+production ansible_host=web-production.orion.org ansible_user=user

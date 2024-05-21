@@ -1,0 +1,8 @@
+- hosts: staging
+  remote_user: user
+  roles:
+    - {
+        role: mr-dxdy.static-deploy,
+        deploy_to: "/srv/www/js-client-template/client",
+        deploy_from: "../../dist"
+      }

@@ -1,0 +1,20 @@
+.main{
+    width: 100%;
+    &-container{
+        padding: 0 18px;
+        display: block;
+    }
+    &_title{
+        font-size: 3rem;
+        box-shadow: 0px 0px 12px black;
+        font-weight: 700;
+        margin-bottom: 7px;
+        height: $height-header;
+        display: flex;
+        align-items: center;
+    }
+    &_h3-title{
+        font-size: 29px;
+        margin-bottom: 31px;
+    }
+}

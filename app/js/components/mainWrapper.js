@@ -4,6 +4,7 @@ import Base from "./base";
 import "./aside.js";
 import "./main.js";
 import "./mainShow.js";
+import Api from "../lib/api.js";
 
 class Wrapper extends Base {
   static get is() {
@@ -12,13 +13,9 @@ class Wrapper extends Base {
 
   static get properties() {
     return {
-      items: { type: Array, value: () => [] },
-      selected_item_data: {
-        type: Object,
-        value: null,
-        observer: "_selectedItemDataChanged",
-      },
-      current_route: { type: String, value: "show" },
+      selected_item: { type: Object, value: null },
+      current_action: { type: String, value: "show" },
+      items: { type: Array, value: [] }
     };
   }
 
@@ -26,65 +23,37 @@ class Wrapper extends Base {
     return html`
       <x-aside
         class="aside"
-        items="{{items}}"
-        on-click="handleItemClick"
+        items="[[items]]"
+        on-item-click="clickOnItemList"
+        on-new-item="onNewItem"
       ></x-aside>
       <x-main class="main"></x-main>
-      <!-- <template is="dom-if" if="{{isShowRoute(current_route)}}">
-        <template is="dom-if" if="{{selected_item_data}}">
-          <x-main-show class="main" data="{{selected_item_data}}"></x-main-show>
-        </template>
-      </template>
-      <template is="dom-if" if="{{isCreateRoute(current_route)}}">
-        <x-main-create class="main"></x-main-create>
-      </template> -->
-      <button on-click="onClickAdd">добавить</button>
     `;
-  }
-
-  isShowRoute(route) {
-    return route == "show";
-  }
-
-  isCreateRoute(route) {
-    return route == "create";
-  }
-
-  onClickAdd(e) {
-    this.set("current_route", "create");
   }
 
   connectedCallback() {
     super.connectedCallback();
-    this.fetchData();
+    this.loadItems();
   }
 
-  fetchData() {
-    fetch("http://tablet-oi-staging.orion.web/dsf_api/calcs")
-      .then((response) => response.json())
-      .then((data) => {
-        this.items = data;
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
+  async loadItems() {
+    const items = await Api.current.getRtvZones();
+    this.set('items', items);
+  }
+  clickOnItemList(event) {
+    const item = event.detail.item;
+    Api.current.getConfigZone(item.id).then((configItem) => {
+      this.setProperties({
+        selected_item: configItem,
+        current_action: 'show'
       });
+    });
   }
 
-  handleItemClick(event) {
-    fetch(
-      `http://tablet-oi-staging.orion.web/dsf_api/calcs-configurations/${event.model.item.id}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        this.set("selected_item_data", data);
-      })
-      .catch((error) => {
-        console.error("Error fetching item config:", error);
-      });
+  onNewItem(event) {
+    this.set('current_action', 'new');
   }
-  _selectedItemDataChanged(newData, oldData) {
-    this._selectedItemDataString = JSON.stringify(newData, null, 2); // Добавлено для отладки
-  }
+
 }
 
 customElements.define(Wrapper.is, Wrapper);

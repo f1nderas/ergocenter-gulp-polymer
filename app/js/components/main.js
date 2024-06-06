@@ -1,6 +1,7 @@
 import { html } from "@polymer/polymer";
 import Base from "./base.js";
 import "./mainContent.js";
+import "./mainShow.js";
 
 class Main extends Base {
   static get is() {
@@ -9,7 +10,7 @@ class Main extends Base {
 
   static get properties() {
     return {
-      current_route: { type: String, value: "create" },
+      current_route: { type: String, value: "show" },
     };
   }
 

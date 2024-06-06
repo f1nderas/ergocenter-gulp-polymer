@@ -2,6 +2,7 @@ import { html } from "@polymer/polymer";
 import "@polymer/polymer/lib/elements/dom-repeat.js";
 
 import Base from "./base";
+import Api from "../lib/api";
 
 class Aside extends Base {
   static get is() {
@@ -10,8 +11,8 @@ class Aside extends Base {
 
   static get properties() {
     return {
-      items: { type: Array, value: () => [] }
-      //onItemClick: { type: Function },
+      items: { type: Array, value: [] },
+      current_item: { type: Object, value: null },
     };
   }
 
@@ -24,13 +25,13 @@ class Aside extends Base {
         <input type="text" class="div_input" placeholder="Поиск" />
       </div>
       <div class="aside-list">
-        <template is="dom-repeat" items="{{items}}">
+        <template is="dom-repeat" as="item" items="[[items]]">
           <div
-            class="aside-item"
+            class$="aside-item [[getActive(item)]]"
             on-click="handleItemClick"
-            data-id$="{{item.id}}"
+            data-id$="[[item.id]]"
           >
-            {{item.name}}
+            [[item.name]]
           </div>
         </template>
       </div>
@@ -40,9 +41,25 @@ class Aside extends Base {
     `;
   }
 
+
   handleItemClick(event) {
-    // const itemId = event.currentTarget.dataset.id;
-    // this.onItemClick(itemId);
+    this.set("current_item", event.model.item);
+    const customEvent = new CustomEvent("item-click", {
+      detail: { item: event.model.item },
+      composed: true,
+    });
+    this.dispatchEvent(customEvent);
+  }
+
+  createNewItem(event) {
+    const customEvent = new CustomEvent("new-item", {
+      composed: true,
+    });
+    this.dispatchEvent(customEvent);
+  }
+
+  getActive(item) {
+    return this.current_item?.id == item.id ? "active" : "";
   }
 }
 

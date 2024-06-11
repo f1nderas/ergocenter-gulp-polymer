@@ -2,9 +2,9 @@ import { html } from "@polymer/polymer";
 import Base from "./base.js";
 import "./mainContent.js";
 import "./mainShow.js";
-
+import Api from "../lib/api.js";
 import { ToggleSection, AutoResizeTextarea, NumberInputArrows, FormValidator } from "../lib/event.js";
-
+const api = Api.current;
 
 class Main extends Base {
   static get is() {
@@ -36,20 +36,26 @@ class Main extends Base {
         </div>
       </div>
 
-      <template is="dom-if" if="{{isShowRoute(current_route)}}">
+      <template is="dom-if" if="{{isShowRoute(currentRoute)}}">
         <template is="dom-if" if="[[selectedItem]]">
           <x-main-show class="main" data="[[selectedItem]]"></x-main-show>
         </template>
       </template>
-      <template is="dom-if" if="{{isCreateRoute(current_route)}}">
+      <template is="dom-if" if="{{isCreateRoute(currentRoute)}}">
         <x-main-content class="main-container" on-dom-changed="_initializeClasses"></x-main-content>
       </template>
     `;
   }
 
-  _selectedItemChanged(newItemId) {
+  async _selectedItemChanged(newItemId) {
     if (newItemId) {
       console.log("Selected item ID changed:", newItemId);
+      try {
+        const item = await api.getConfigZone(newItemId);
+        this.set('selectedItem', item);
+      } catch (error) {
+        console.error("Error fetching item:", error);
+      }
     }
   }
 

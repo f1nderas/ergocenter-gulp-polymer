@@ -15,15 +15,10 @@ class ZrkApp extends Base {
     return {
       selectedItemId: {
         type: String,
-        value: null,
-      },
-      selectedItem: {
-        type: Object,
-        value: null,
       },
       currentRoute: {
         type: String,
-        value: "show",
+        value: null,
       },
     };
   }
@@ -33,28 +28,24 @@ class ZrkApp extends Base {
       <aside-nav
         class="aside"
         on-item-selected="_handleItemSelected"
-        on-add-button-clicked="_handleAddButtonClick"
+        on-add-item="_handleAddItem"
       ></aside-nav>
       <x-main
         class="main"
         selected-item-id="[[selectedItemId]]"
-        selected-item="[[selectedItem]]"
-        current_route="[[currentRoute]]"
+        current-route="[[currentRoute]]"
       ></x-main>
     `;
   }
 
-  _handleItemSelected = (event) => {
-    const { id, item } = event.detail;
-    this.setProperties({
-      selectedItemId: id,
-      selectedItem: item,
-      currentRoute: "show",
-    });
-  };
+  _handleItemSelected(event) {
+    const itemId = event.detail.id;
+    this.set('selectedItemId', itemId);
+    this.set('currentRoute', 'show');
+  }
 
-  _handleAddButtonClick() {
-    this.set("currentRoute", "create");
+  _handleAddItem() {
+    this.set('currentRoute', 'create');
   }
 }
 

@@ -13,8 +13,8 @@ class AsideNav extends Base {
     return {
       items: {
         type: Array,
-        value: () => []
-      }
+        value: () => [],
+      },
     };
   }
 
@@ -38,7 +38,9 @@ class AsideNav extends Base {
         </template>
       </div>
       <div class="aside-btn">
-        <button class="btn btn-yellow" on-click="_handleAddButtonClick">Добавить</button>
+        <button class="btn btn-yellow" on-click="_handleAddButtonClick">
+          Добавить
+        </button>
       </div>
     `;
   }
@@ -50,36 +52,33 @@ class AsideNav extends Base {
   async _fetchData() {
     try {
       const response = await api.getRtvZones();
-      this.set('items', response);
+      this.set("items", response);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   }
   _handleItemClick = async (event) => {
-    const selectedItemId = event.model.item.id;
+    const itemId = event.currentTarget.dataset.id;
 
-    const items = this.querySelectorAll('.aside-item');
-    items.forEach((el) => el.classList.remove('active'));
-    event.target.classList.add('active');
+    const items = this.querySelectorAll(".aside-item");
+    items.forEach((el) => el.classList.remove("active"));
+    event.target.classList.add("active");
 
-    try {
-      const selectedItem = await api.getConfigZone(selectedItemId);
-      this.dispatchEvent(new CustomEvent('item-selected', {
-        detail: { id: selectedItemId, item: selectedItem },
-        bubbles: true,
-        composed: true
-      }));
-    } catch (error) {
-      console.error("Error fetching item data:", error);
-    }
-  }
-  _handleAddButtonClick() {
-    this.dispatchEvent(new CustomEvent('add-button-clicked', {
+
+    this.dispatchEvent(new CustomEvent('item-selected', {
+      detail: { id: itemId },
       bubbles: true,
       composed: true
     }));
+  };
+  _handleAddButtonClick() {
+    this.dispatchEvent(
+      new CustomEvent("add-item", {
+        bubbles: true,
+        composed: true,
+      })
+    );
   }
-
 }
 
 customElements.define(AsideNav.is, AsideNav);

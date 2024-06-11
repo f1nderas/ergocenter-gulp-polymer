@@ -43,9 +43,12 @@
     font-size: 15px;
     padding: 6px 10px;
     cursor: pointer;
-    background-color: $yellow-color;
+    background-color: transparent;
     &:hover {
         background-color: #ffee99;
+    }
+    &.active {
+        background-color: $yellow-color;;
     }
   }
   &-btn {

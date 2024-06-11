@@ -15,6 +15,10 @@ class AsideNav extends Base {
         type: Array,
         value: () => [],
       },
+      searchQuery: {
+        type: String,
+        value: ""
+      }
     };
   }
 
@@ -24,10 +28,10 @@ class AsideNav extends Base {
         <button class="div_btn btn">
           <img src="../images/search-input.png" alt="" />
         </button>
-        <input type="text" value="{{search::item}}" class="div_input" placeholder="Поиск" />
+        <input type="text"   value="{{searchQuery::input}}"  class="div_input" placeholder="Поиск" />
       </div>
       <div class="aside-list">
-        <template is="dom-repeat" as="item" items="[[items]]">
+        <template is="dom-repeat" as="item" items="{{_filteredItems(searchQuery, items)}}">
           <div
             class="aside-item"
             data-id$="[[item.id]]"
@@ -78,6 +82,13 @@ class AsideNav extends Base {
         composed: true,
       })
     );
+  }
+
+  _filteredItems(searchQuery, items) {
+    if (!searchQuery) {
+      return items;
+    }
+    return items.filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
   }
 }
 

@@ -22,7 +22,7 @@ class Main extends Base {
       },
       currentRoute: {
         type: String,
-        value: "show",
+        value: null,
         observer: "_routeChanged"
       },
     };
@@ -38,11 +38,11 @@ class Main extends Base {
 
       <template is="dom-if" if="{{isShowRoute(currentRoute)}}">
         <template is="dom-if" if="[[selectedItem]]">
-          <x-main-show class="main" data="[[selectedItem]]"></x-main-show>
+          <main-show class="main-container" data="[[selectedItem]]"></x-main-show>
         </template>
       </template>
       <template is="dom-if" if="{{isCreateRoute(currentRoute)}}">
-        <x-main-content class="main-container" on-dom-changed="_initializeClasses"></x-main-content>
+        <main-content class="main-container" on-dom-changed="_initializeClasses"></main-content>
       </template>
     `;
   }

@@ -3,7 +3,7 @@ import Base from "./base";
 
 class MainContent extends Base {
   static get is() {
-    return "x-main-content";
+    return "main-content";
   }
 
   static get template() {

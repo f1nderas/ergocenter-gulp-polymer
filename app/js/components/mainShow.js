@@ -14,9 +14,7 @@ class MainShow extends Base {
 
   static get template() {
     return html`
- <template is="dom-if" if="[[isBlank(data)]]">
-      <div class='no_selected' >Зона не выбрана</div>
-    </template>
+
     <template is="dom-if" if="[[!isBlank(data)]]">
       <div class="detection_item">
 
@@ -27,7 +25,7 @@ class MainShow extends Base {
         <p><span>Учет дежурных средств: [[getEquipment(data)]]</span></p>
         <p><span>Учет боеготовных средств: [[getCombat(data)]]<span></p>
         <p><span>Формирование: [[getFormation(data)]]</span></p>
-        <p><span>РЛС: [[getRradar(data)]]</span></p>
+        <p><span>ЗРК: [[getRradar(data)]]</span></p>
         <p><span>Расчет в 3D: [[get3dValue(data)]]</span></p>
         <p><span>Полет с огибанием рельефа местности: [[getTerrain_following(data)]]</span></p>
       </div>
@@ -64,7 +62,7 @@ class MainShow extends Base {
   }
 
   getRradar(item) {
-    return item?.parameters?.radar;
+    return item?.parameters?.ams;
   }
 
   get3dValue(item) {

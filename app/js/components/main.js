@@ -44,6 +44,9 @@ class Main extends Base {
       <template is="dom-if" if="{{isCreateRoute(currentRoute)}}">
         <main-content class="main-container" on-dom-changed="_initializeClasses"></main-content>
       </template>
+      <template is="dom-if" if="[[isBlank(currentRoute)]]">
+      <div class='no_selected' >Зона не выбрана</div>
+    </template>
     `;
   }
 
@@ -81,6 +84,11 @@ class Main extends Base {
   isCreateRoute(route) {
     return route === "create";
   }
+
+  isBlank(route) {
+    return route == null;
+  }
+
 }
 
 customElements.define(Main.is, Main);

@@ -24,7 +24,7 @@ class AsideNav extends Base {
         <button class="div_btn btn">
           <img src="../images/search-input.png" alt="" />
         </button>
-        <input type="text" class="div_input" placeholder="Поиск" />
+        <input type="text" value="{{search::item}}" class="div_input" placeholder="Поиск" />
       </div>
       <div class="aside-list">
         <template is="dom-repeat" as="item" items="[[items]]">
@@ -51,7 +51,7 @@ class AsideNav extends Base {
 
   async _fetchData() {
     try {
-      const response = await api.getRtvZones();
+      const response = await api.getZrkZones();
       this.set("items", response);
     } catch (error) {
       console.error("Error fetching data:", error);

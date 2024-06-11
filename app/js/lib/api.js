@@ -11,10 +11,10 @@ class Api {
     return this.doFetch("/dsf_api/calcs");
   }
 
-  async getRtvZones() {
+  async getZrkZones() {
     const zones = await this.getZones();
     return zones.filter(
-      (zone) => zone.type === "skbx.dsf.task.radar.detectareas"
+      (zone) => zone.type.includes("skbx.dsf.task.ams.destroyareas")
     );
   }
 

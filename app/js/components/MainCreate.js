@@ -1,5 +1,8 @@
 import { html } from "@polymer/polymer";
 import Base from "./base";
+import "./form-textarea.js";
+import "./form-checkbox.js";
+import "./form-number.js";
 
 class MainCreate extends Base {
   static get is() {
@@ -10,118 +13,66 @@ class MainCreate extends Base {
     return html`
       <h3 class="main_h3-title">Создание задачи</h3>
       <form class="task-form task-form-js">
-        <div class="form-group form-group--textarea">
-          <label for="task-name" class="form-label">Наименование</label>
-          <textarea
-            id="task-name"
-            class="form-textarea task-name-js"
-            placeholder="Наименование"
-          ></textarea>
-        </div>
-        <div class="form-group custom-checkbox">
-          <label for="account-duty-funds" class="form-label"
-            >Учет дежурных средств</label
-          >
-          <input
-            type="checkbox"
-            id="account-duty-funds"
-            class="form-checkbox"
-          />
-        </div>
-        <div class="form-group custom-checkbox">
-          <label for="account-combat-ready-funds" class="form-label"
-            >Учет боеготовых средств</label
-          >
-          <input
-            type="checkbox"
-            id="account-combat-ready-funds"
-            class="form-checkbox"
-          />
-        </div>
+        <form-textarea
+          id-property="task-name"
+          label="Наименование"
+          placeholder="Наименование"
+          value="{{taskName}}"
+        ></form-textarea>
+        <form-checkbox
+          id-property="account-duty-funds"
+          label="Учет дежурных средств"
+          checked="{{accountDutyFunds}}"
+        ></form-checkbox>
+        <form-checkbox
+          id-property="account-combat-ready-funds"
+          label="Учет боеготовых средств"
+          checked="{{accountCombatReadyFunds}}"
+        ></form-checkbox>
         <div class="form-group">
           <label for="formation" class="form-label">Формирование</label>
           <div class="custom-select">
-            <select id="formation" class="form-select">
+            <select id="formation" class="form-select" name="formation">
               <option value="option0">Не выбрано</option>
               <option value="option1">Option 1</option>
               <option value="option2">Option 2</option>
             </select>
           </div>
         </div>
-        <div class="form-group custom-checkbox">
-          <label for="3d-calculation" class="form-label">Расчет в 3D</label>
-          <input type="checkbox" id="3d-calculation" class="form-checkbox" />
-        </div>
-        <div class="form-group custom-checkbox">
-          <label for="terrain-following-flight" class="form-label"
-            >Полет с огибанием рельефа местности</label
-          >
-          <input
-            type="checkbox"
-            id="terrain-following-flight"
-            class="form-checkbox"
-          />
-        </div>
-        <div class="form-group">
-          <label for="launch-height" class="form-label"
-            >Высота пуска ракеты, м</label
-          >
-          <div class="input-container">
-            <input
-              type="number"
-              id="launch-height"
-              class="form-input"
-              value="0"
-            />
-            <div class="arrow-up arrow-up-js"></div>
-            <div class="arrow-down arrow-down-js"></div>
-          </div>
-        </div>
+        <form-checkbox
+          id-property="3d-calculation"
+          label="Расчет в 3D"
+          checked="{{calculation3D}}"
+        ></form-checkbox>
+        <form-checkbox
+          id-property="terrain-following-flight"
+          label="Полет с огибанием рельефа местности"
+          checked="{{terrainFollowingFlight}}"
+        ></form-checkbox>
+        <form-number
+          id-property="launch-height"
+          label="Высота пуска ракеты, м"
+          value="0"
+        ></form-number>
         <h4 class="subheading">Параметры цели</h4>
-        <div class="form-group">
-          <label for="target-height" class="form-label">Высота, м</label>
-          <div class="input-container">
-            <input
-              type="number"
-              id="target-height"
-              class="form-input"
-              value="250"
-            />
-            <div class="arrow-up arrow-up-js"></div>
-            <div class="arrow-down arrow-down-js"></div>
-          </div>
-        </div>
+        <form-number
+          id-property="target-height"
+          label="Высота, м"
+          value="250"
+        ></form-number>
         <h4 class="subheading">Параметры расчета зоны огня</h4>
-        <div  class="toggle-section toggle-section-js">
-          <div class="form-group">
-            <label for="azimuth-step" class="form-label">Шаг по азимуту</label>
-            <div class="input-container">
-              <input
-                type="number"
-                id="azimuth-step"
-                class="form-input"
-                value="1.000"
-                step="0.001"
-              />
-              <div class="arrow-up arrow-up-js"></div>
-              <div class="arrow-down arrow-down-js"></div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="step-size" class="form-label"
-              >Размер шага от точки стояния, м</label
-            >
-            <div class="input-container">
-              <input
-                type="number"
-                id="step-size"
-                class="form-input"
-                value="1000"
-              />
-              <div class="arrow-up arrow-up-js"></div>
-              <div class="arrow-down arrow-down-js"></div>
-            </div>
-          </div>
+        <div class="toggle-section toggle-section-js">
+          <form-number
+            id-property="azimuth-step"
+            label="Шаг по азимуту"
+            value="1"
+            step="0.001"
+          ></form-number>
+          <form-number
+            id-property="step-size"
+            label="Размер шага от точки стояния, м"
+            value="1000"
+          ></form-number>
         </div>
         <button type="button" class="toggle-button toggle-button-js">
           Больше параметров

@@ -14,7 +14,7 @@ class Api {
   async getZrkZones() {
     const zones = await this.getZones();
     return zones.filter(
-      (zone) => zone.type.includes("skbx.dsf.task.ams.destroyareas")
+      (zone) => zone.type === 'skbx.dsf.task.ams.destroyareas.grouptask'
     );
   }
 

@@ -17,8 +17,8 @@ class AsideNav extends Base {
       },
       searchQuery: {
         type: String,
-        value: ""
-      }
+        value: "",
+      },
     };
   }
 
@@ -28,10 +28,18 @@ class AsideNav extends Base {
         <button class="div_btn btn">
           <img src="../images/search-input.png" alt="" />
         </button>
-        <input type="text"   value="{{searchQuery::input}}"  class="div_input" placeholder="Поиск" />
+        <input
+          type="text"
+          value="{{searchQuery::input}}"
+          class="div_input"
+          placeholder="Поиск"
+        />
       </div>
       <div class="aside-list">
-        <template is="dom-repeat" as="item" items="{{_filteredItems(searchQuery, items)}}">
+        <template
+          is="dom-repeat"
+          items="[[_filteredItems(searchQuery, items)]]"
+        >
           <div
             class="aside-item"
             data-id$="[[item.id]]"
@@ -68,12 +76,13 @@ class AsideNav extends Base {
     items.forEach((el) => el.classList.remove("active"));
     event.target.classList.add("active");
 
-
-    this.dispatchEvent(new CustomEvent('item-selected', {
-      detail: { id: itemId },
-      bubbles: true,
-      composed: true
-    }));
+    this.dispatchEvent(
+      new CustomEvent("selected-item", {
+        detail: { id: itemId },
+        bubbles: true,
+        composed: true,
+      })
+    );
   };
   _handleAddButtonClick() {
     this.dispatchEvent(
@@ -84,11 +93,13 @@ class AsideNav extends Base {
     );
   }
 
-  _filteredItems(searchQuery, items) {
-    if (!searchQuery) {
+  _filteredItems(query, items) {
+    if (!query) {
       return items;
     }
-    return items.filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
+    return items.filter((item) =>
+      item.name.toLowerCase().includes(query.toLowerCase())
+    );
   }
 }
 

@@ -13,12 +13,15 @@ class ZrkApp extends Base {
 
   static get properties() {
     return {
+      items: {
+        type: Array,
+        value: () => [],
+      },
       selectedItemId: {
         type: String,
       },
       currentRoute: {
         type: String,
-        value: null,
       },
     };
   }
@@ -27,13 +30,15 @@ class ZrkApp extends Base {
     return html`
       <aside-nav
         class="aside"
-        on-item-selected="_handleItemSelected"
+        items="{{items}}"
         on-add-item="_handleAddItem"
+        on-selected-item="_handleItemSelected"
       ></aside-nav>
       <x-main
         class="main"
         selected-item-id="[[selectedItemId]]"
         current-route="[[currentRoute]]"
+        on-edit-item="_handleEditItem"
       ></x-main>
     `;
   }
@@ -46,6 +51,9 @@ class ZrkApp extends Base {
 
   _handleAddItem() {
     this.set('currentRoute', 'create');
+  }
+  _handleEditItem() {
+    this.currentRoute = "edit";
   }
 }
 

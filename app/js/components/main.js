@@ -1,9 +1,15 @@
 import { html } from "@polymer/polymer";
 import Base from "./base.js";
-import "./mainContent.js";
+import "./MainCreate.js";
 import "./mainShow.js";
+import "./MainEdit.js";
 import Api from "../lib/api.js";
-import { ToggleSection, AutoResizeTextarea, NumberInputArrows, FormValidator } from "../lib/event.js";
+import {
+  ToggleSection,
+  AutoResizeTextarea,
+  NumberInputArrows,
+  FormValidator,
+} from "../lib/event.js";
 const api = Api.current;
 
 class Main extends Base {
@@ -23,7 +29,7 @@ class Main extends Base {
       currentRoute: {
         type: String,
         value: null,
-        observer: "_routeChanged"
+        observer: "_routeChanged",
       },
     };
   }
@@ -42,11 +48,14 @@ class Main extends Base {
         </template>
       </template>
       <template is="dom-if" if="{{isCreateRoute(currentRoute)}}">
-        <main-content class="main-container" on-dom-changed="_initializeClasses"></main-content>
+        <main-create class="main-container" on-dom-changed="_initializeClasses"></main-create>
+      </template>
+      <template is="dom-if" if="{{isEditRoute(currentRoute)}}">
+        <main-edit class="main-container" data="[[selectedItem]]"></main-edit>
       </template>
       <template is="dom-if" if="[[isBlank(currentRoute)]]">
       <div class='no_selected' >Зона не выбрана</div>
-    </template>
+      </template>
     `;
   }
 
@@ -55,7 +64,7 @@ class Main extends Base {
       console.log("Selected item ID changed:", newItemId);
       try {
         const item = await api.getConfigZone(newItemId);
-        this.set('selectedItem', item);
+        this.set("selectedItem", item);
       } catch (error) {
         console.error("Error fetching item:", error);
       }
@@ -63,7 +72,7 @@ class Main extends Base {
   }
 
   _routeChanged(newRoute) {
-    if (newRoute === 'create') {
+    if (newRoute === "create" || newRoute === "edit") {
       this._initializeClasses();
     }
   }
@@ -85,10 +94,13 @@ class Main extends Base {
     return route === "create";
   }
 
+  isEditRoute(route) {
+    return route === "edit";
+  }
+
   isBlank(route) {
     return route == null;
   }
-
 }
 
 customElements.define(Main.is, Main);

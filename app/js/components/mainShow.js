@@ -16,7 +16,10 @@ class MainShow extends Base {
     return html`
       <template is="dom-if" if="[[!isBlank(data)]]">
         <div class="section">
-          <div class="section-header">[[data.name]]</div>
+          <div class="section-header">
+            <div>[[data.name]]</div>
+            <button class="btn btn-yellow" on-click="_handleEditButtonClick">Редактировать</button>
+          </div>
           <div>Учет дежурных средств: [[getDuty(data)]]</div>
           <div>Учет боеготовых средств: [[getCombat(data)]]</div>
           <div>Формирование: [[getFormation(data)]]</div>
@@ -42,6 +45,14 @@ class MainShow extends Base {
         </div>
       </template>
     `;
+  }
+
+  _handleEditButtonClick() {
+    this.dispatchEvent(new CustomEvent("edit-item", {
+      detail: { itemId: this.data.id },
+      bubbles: true,
+      composed: true
+    }));
   }
 
   getDuty(item) {

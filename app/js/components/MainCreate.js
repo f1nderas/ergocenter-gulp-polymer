@@ -1,9 +1,9 @@
 import { html } from "@polymer/polymer";
 import Base from "./base";
 
-class MainContent extends Base {
+class MainCreate extends Base {
   static get is() {
-    return "main-content";
+    return "main-create";
   }
 
   static get template() {
@@ -138,6 +138,6 @@ class MainContent extends Base {
   }
 }
 
-customElements.define(MainContent.is, MainContent);
+customElements.define(MainCreate.is, MainCreate);
 
-export default MainContent;
+export default MainCreate;

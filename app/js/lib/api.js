@@ -18,6 +18,26 @@ class Api {
     );
   }
 
+  async getFormations() {
+    return this.doFetch("/dao_api/dao/skbx.dao.formation");
+  }
+
+  async createCalculationTask(taskData) {
+    return this.doPost("/dsf_api/calcs", taskData);
+  }
+
+  async updateCalculationTask(id, taskData) {
+    return this.doPost(`/dsf_api/calcs/${id}`, taskData);
+  }
+
+  async deleteCalculationTask(id) {
+    return this.doDelete(`/dsf_api/calcs/${id}`);
+  }
+
+  async getConfigZone(id) {
+    return this.doFetch(`/dsf_api/calcs-configurations/${id}`);
+  }
+
   async doFetch(path) {
     try {
       const response = await fetch(`${this.endpoint}${path}`);
@@ -31,8 +51,38 @@ class Api {
     }
   }
 
-  async getConfigZone(id) {
-    return this.doFetch(`/dsf_api/calcs-configurations/${id}`);
+  async doPost(path, data) {
+    try {
+      const response = await fetch(`${this.endpoint}${path}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error(`Fetch error: ${error.message}`);
+      throw error;
+    }
+  }
+
+  async doDelete(path) {
+    try {
+      const response = await fetch(`${this.endpoint}${path}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error(`Fetch error: ${error.message}`);
+      throw error;
+    }
   }
 }
 

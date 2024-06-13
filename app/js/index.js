@@ -37,4 +37,14 @@ import "./components/ZrkApp";
 // });
 
 
+// api.getFormations().then(formations => console.log(formations));
 
+// const newTask = { name: "New Task", ... };
+// api.createCalculationTask(newTask).then(response => console.log(response));
+
+// const updatedTask = { name: "Updated Task", ... };
+// const taskId = 123;
+// api.updateCalculationTask(taskId, updatedTask).then(response => console.log(response));
+
+// const taskId = 123;
+// api.deleteCalculationTask(taskId).then(response => console.log(response));

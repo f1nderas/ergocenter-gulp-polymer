@@ -99,7 +99,6 @@ class FormValidator {
     const requiredFields = [
       { id: "task-name", name: "Наименование" },
       { id: "formation", name: "Формирование", invalidValue: "option0" },
-      { id: "zrk", name: "ЗРК", invalidValue: "option0" },
     ];
 
     requiredFields.forEach((field) => {

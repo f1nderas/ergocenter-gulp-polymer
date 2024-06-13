@@ -48,16 +48,6 @@ class MainContent extends Base {
             </select>
           </div>
         </div>
-        <div class="form-group ">
-          <label for="zrk" class="form-label">ЗРК</label>
-          <div class="custom-select">
-            <select id="zrk" class="form-select">
-              <option value="option0">Не выбрано</option>
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-            </select>
-          </div>
-        </div>
         <div class="form-group custom-checkbox">
           <label for="3d-calculation" class="form-label">Расчет в 3D</label>
           <input type="checkbox" id="3d-calculation" class="form-checkbox" />

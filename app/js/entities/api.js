@@ -13,8 +13,9 @@ class Api {
 
   async getZrkZones() {
     const zones = await this.getZones();
+    if(zones.error) return [zones]
     return zones.filter(
-      (zone) => zone.type === 'skbx.dsf.task.ams.destroyareas.grouptask'
+      (zone) => zone.type === "skbx.dsf.task.ams.destroyareas.grouptask"
     );
   }
 
@@ -39,24 +40,19 @@ class Api {
   }
 
   async doFetch(path) {
-    try {
-      const response = await fetch(`${this.endpoint}${path}`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return await response.json();
-    } catch (error) {
-      console.error(`Fetch error: ${error.message}`);
-      throw error;
+    const response = await fetch(`${this.endpoint}${path}`);
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    return await response.json();
   }
 
   async doPost(path, data) {
     try {
       const response = await fetch(`${this.endpoint}${path}`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
@@ -73,7 +69,7 @@ class Api {
   async doDelete(path) {
     try {
       const response = await fetch(`${this.endpoint}${path}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

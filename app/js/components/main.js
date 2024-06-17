@@ -3,13 +3,13 @@ import Base from "./base.js";
 import "./MainCreate.js";
 import "./mainShow.js";
 import "./MainEdit.js";
-import Api from "../lib/api.js";
+import Api from "../entities/api.js";
 import {
   ToggleSection,
   AutoResizeTextarea,
   NumberInputArrows,
   FormValidator,
-} from "../lib/event.js";
+} from "../entities/event.js";
 const api = Api.current;
 
 class Main extends Base {

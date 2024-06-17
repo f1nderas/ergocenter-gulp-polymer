@@ -4,7 +4,7 @@ import Base from "./base.js";
 import "./AsideNav.js";
 import "./main.js";
 import "./mainShow.js";
-import Api from "../lib/api.js";
+import Api from "../entities/api.js";
 
 class ZrkApp extends Base {
   static get is() {

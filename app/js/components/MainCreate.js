@@ -9,8 +9,50 @@ class MainCreate extends Base {
     return "main-create";
   }
 
+  static get properties() {
+    return {
+      taskName: {
+        type: String,
+        value: "asd",
+      },
+      accountDutyFunds: {
+        type: Boolean,
+        value: false,
+      },
+      accountCombatReadyFunds: {
+        type: Boolean,
+        value: false,
+      },
+      calculation3D: {
+        type: Boolean,
+        value: false,
+      },
+      terrainFollowingFlight: {
+        type: Boolean,
+        value: false,
+      },
+      launchHeight: {
+        type: Number,
+        value: 0,
+      },
+      targetHeight: {
+        type: Number,
+        value: 250,
+      },
+      azimuthStep: {
+        type: Number,
+        value: 1,
+      },
+      stepSize: {
+        type: Number,
+        value: 1000,
+      },
+    };
+  }
+
   static get template() {
     return html`
+    <div>[[taskName]]</div>
       <h3 class="main_h3-title">Создание задачи</h3>
       <form class="task-form task-form-js">
         <form-textarea
@@ -52,26 +94,26 @@ class MainCreate extends Base {
         <form-number
           id-property="launch-height"
           label="Высота пуска ракеты, м"
-          value="0"
+          value="{{launchHeight}}"
         ></form-number>
         <h4 class="subheading">Параметры цели</h4>
         <form-number
           id-property="target-height"
           label="Высота, м"
-          value="250"
+          value="{{targetHeight}}"
         ></form-number>
         <h4 class="subheading">Параметры расчета зоны огня</h4>
         <div class="toggle-section toggle-section-js">
           <form-number
             id-property="azimuth-step"
             label="Шаг по азимуту"
-            value="1"
+            value="{{azimuthStep}}"
             step="0.001"
           ></form-number>
           <form-number
             id-property="step-size"
             label="Размер шага от точки стояния, м"
-            value="1000"
+            value="{{stepSize}}"
           ></form-number>
         </div>
         <button type="button" class="toggle-button toggle-button-js">

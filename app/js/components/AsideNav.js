@@ -1,7 +1,7 @@
 import { html } from "@polymer/polymer";
 import "@polymer/polymer/lib/elements/dom-repeat.js";
 import Base from "./base";
-import Api from "../lib/api";
+import Api from "../entities/api";
 
 const api = Api.current;
 class AsideNav extends Base {
@@ -10,6 +10,7 @@ class AsideNav extends Base {
   }
 
   static get properties() {
+    console.dir(this);
     return {
       items: {
         type: Array,
@@ -18,6 +19,10 @@ class AsideNav extends Base {
       searchQuery: {
         type: String,
         value: "",
+      },
+      errorResponse: {
+        type: String,
+        value: null,
       },
     };
   }
@@ -47,6 +52,9 @@ class AsideNav extends Base {
           >
             [[item.name]]
           </div>
+        </template>
+        <template is="dom-if" if="[[isNotResponse(items)]]">
+          [[errorResponse]]
         </template>
       </div>
       <div class="aside-btn">
@@ -100,6 +108,14 @@ class AsideNav extends Base {
     return items.filter((item) =>
       item.name.toLowerCase().includes(query.toLowerCase())
     );
+  }
+
+  isNotResponse(array) {
+    if (array[0]?.error) {
+      this.set("errorResponse", 'Ошибка: '+array[0].error);
+      return "error" in array[0];
+    }
+    return array[0];
   }
 }
 

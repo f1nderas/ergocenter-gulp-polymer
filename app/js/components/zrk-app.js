@@ -1,10 +1,8 @@
 import { html } from "@polymer/polymer";
 import "@polymer/polymer/lib/elements/dom-if.js";
-import Base from "./base.js";
-import "./AsideNav.js";
-import "./main.js";
-import "./mainShow.js";
-import Api from "../entities/api.js";
+import Base from "./_base.js";
+import "./aside-nav.js";
+import "./main-wrapper.js";
 
 class ZrkApp extends Base {
   static get is() {
@@ -34,12 +32,12 @@ class ZrkApp extends Base {
         on-add-item="_handleAddItem"
         on-selected-item="_handleItemSelected"
       ></aside-nav>
-      <x-main
+      <main-wrapper
         class="main"
         selected-item-id="[[selectedItemId]]"
         current-route="[[currentRoute]]"
         on-edit-item="_handleEditItem"
-      ></x-main>
+      ></main-wrapper>
     `;
   }
 

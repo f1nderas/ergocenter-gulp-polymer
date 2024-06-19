@@ -1,4 +1,4 @@
-import "./components/ZrkApp";
+import "./components/zrk-app";
 // import Api from "./lib/api";
 
 

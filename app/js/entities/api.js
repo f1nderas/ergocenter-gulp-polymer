@@ -1,6 +1,6 @@
 class Api {
   static get current() {
-    return new Api("http://tablet-oi-staging.orion.web");
+    return new Api("http://zones-oi-staging.orion.web");
   }
 
   constructor(endpoint) {
@@ -13,7 +13,7 @@ class Api {
 
   async getZrkZones() {
     const zones = await this.getZones();
-    if(zones.error) return [zones]
+    if (zones.error) return [zones];
     return zones.filter(
       (zone) => zone.type === "skbx.dsf.task.ams.destroyareas.grouptask"
     );
@@ -48,22 +48,17 @@ class Api {
   }
 
   async doPost(path, data) {
-    try {
-      const response = await fetch(`${this.endpoint}${path}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return await response.json();
-    } catch (error) {
-      console.error(`Fetch error: ${error.message}`);
-      throw error;
+    const response = await fetch(`${this.endpoint}${path}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    return await response.json();
   }
 
   async doDelete(path) {

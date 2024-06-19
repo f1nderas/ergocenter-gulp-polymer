@@ -1,6 +1,6 @@
 // form-number.js
 import { html } from "@polymer/polymer";
-import Base from "./base";
+import Base from "../_base";
 class FormNumber extends Base {
   static get is() {
     return "form-number";

@@ -1,6 +1,6 @@
 import { html } from "@polymer/polymer";
 import "@polymer/polymer/lib/elements/dom-repeat.js";
-import Base from "./base";
+import Base from "./_base.js";
 import Api from "../entities/api";
 
 const api = Api.current;
@@ -44,6 +44,7 @@ class AsideNav extends Base {
         <template
           is="dom-repeat"
           items="[[_filteredItems(searchQuery, items)]]"
+          if="[[!isNotResponse(items)]]"
         >
           <div
             class="aside-item"
@@ -115,7 +116,7 @@ class AsideNav extends Base {
       this.set("errorResponse", 'Ошибка: '+array[0].error);
       return "error" in array[0];
     }
-    return array[0];
+    return false;
   }
 }
 

@@ -1,8 +1,9 @@
 import { html } from "@polymer/polymer";
-import Base from "./base";
-import "./form-textarea.js";
-import "./form-checkbox.js";
-import "./form-number.js";
+import Base from "./_base.js";
+import "./UI/form-textarea.js";
+import "./UI/form-checkbox.js";
+import "./UI/form-number.js";
+
 
 class MainCreate extends Base {
   static get is() {
@@ -53,6 +54,7 @@ class MainCreate extends Base {
   static get template() {
     return html`
     <div>[[taskName]]</div>
+
       <h3 class="main_h3-title">Создание задачи</h3>
       <form class="task-form task-form-js">
         <form-textarea

@@ -1,6 +1,6 @@
 // form-textarea.js
 import { html } from "@polymer/polymer";
-import Base from "./base.js";
+import Base from "../_base.js";
 class FormTextarea extends Base {
   static get is() {
     return "form-textarea";

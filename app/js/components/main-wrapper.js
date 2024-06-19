@@ -1,8 +1,8 @@
 import { html } from "@polymer/polymer";
-import Base from "./base.js";
-import "./MainCreate.js";
-import "./mainShow.js";
-import "./MainEdit.js";
+import Base from "./_base.js";
+import "./main-create.js";
+import "./main-show.js";
+import "./main-edit.js";
 import Api from "../entities/api.js";
 import {
   ToggleSection,
@@ -12,9 +12,9 @@ import {
 } from "../entities/event.js";
 const api = Api.current;
 
-class Main extends Base {
+class MainWrapper extends Base {
   static get is() {
-    return "x-main";
+    return "main-wrapper";
   }
 
   static get properties() {
@@ -103,6 +103,6 @@ class Main extends Base {
   }
 }
 
-customElements.define(Main.is, Main);
+customElements.define(MainWrapper.is, MainWrapper);
 
-export default Main;
+export default MainWrapper;

@@ -1,5 +1,5 @@
 import { html } from "@polymer/polymer";
-import Base from "./base";
+import Base from "./_base.js";
 
 class MainEdit extends Base {
   static get is() {

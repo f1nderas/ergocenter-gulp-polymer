@@ -1,6 +1,6 @@
 // form-checkbox.js
 import { html } from "@polymer/polymer";
-import Base from "./base.js";
+import Base from "../_base.js";
 class FormCheckbox extends Base {
   static get is() {
     return "form-checkbox";

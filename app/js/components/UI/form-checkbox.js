@@ -25,7 +25,7 @@ class FormCheckbox extends Base {
           type="checkbox"
           id="[[idProperty]]"
           class="form-checkbox"
-          checked="{{checked}}"
+          checked="{{checked::input}}"
         />
       </div>
     `;

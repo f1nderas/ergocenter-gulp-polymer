@@ -1,8 +1,8 @@
 import { html } from "@polymer/polymer";
 import "@polymer/polymer/lib/elements/dom-if.js";
-import Base from "./_base.js";
-import "./aside-nav.js";
-import "./main-wrapper.js";
+import Base from "./components/_base.js";
+import "./components/aside-nav.js";
+import "./components/main-wrapper.js";
 
 class ZrkApp extends Base {
   static get is() {

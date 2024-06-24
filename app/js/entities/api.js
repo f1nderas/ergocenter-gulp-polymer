@@ -23,6 +23,30 @@ class Api {
     return this.doFetch("/dao_api/dao/skbx.dao.formation");
   }
 
+  async initializeFormations() {
+    const storageKey = "filteredData";
+    const cacheExpiryKey = "cacheExpiry";
+    const cacheLifetime = 24 * 60 * 60 * 1000; //24 часа
+
+    const cachedData = localStorage.getItem(storageKey);
+    const cacheExpiry = localStorage.getItem(cacheExpiryKey);
+
+    if (cachedData && cacheExpiry && new Date().getTime() < cacheExpiry) {
+      return JSON.parse(cachedData);
+    }
+
+    const formationFull = await this.getFormations();
+    const formation = formationFull.map((format) => ({
+      id: format.id,
+      name: format.command_post_name,
+    }));
+
+    localStorage.setItem(storageKey, JSON.stringify(formation));
+    localStorage.setItem(cacheExpiry, new Date().getTime() + cacheLifetime);
+
+    return formation;
+  }
+
   async createCalculationTask(taskData) {
     return this.doPost("/dsf_api/calcs", taskData);
   }
@@ -62,18 +86,13 @@ class Api {
   }
 
   async doDelete(path) {
-    try {
-      const response = await fetch(`${this.endpoint}${path}`, {
-        method: "DELETE",
-      });
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return await response.json();
-    } catch (error) {
-      console.error(`Fetch error: ${error.message}`);
-      throw error;
+    const response = await fetch(`${this.endpoint}${path}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
+    return await response.json();
   }
 }
 

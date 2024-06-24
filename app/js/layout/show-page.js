@@ -1,9 +1,9 @@
 import { html } from "@polymer/polymer";
-import Base from "./_base.js";
+import Base from "../components/_base.js";
 
-class MainShow extends Base {
+class ShowPage extends Base {
   static get is() {
-    return "main-show";
+    return "show-page";
   }
 
   static get properties() {
@@ -97,6 +97,6 @@ class MainShow extends Base {
   }
 }
 
-customElements.define(MainShow.is, MainShow);
+customElements.define(ShowPage.is, ShowPage);
 
-export default MainShow;
+export default ShowPage;

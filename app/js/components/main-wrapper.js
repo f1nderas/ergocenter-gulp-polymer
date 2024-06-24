@@ -1,8 +1,8 @@
 import { html } from "@polymer/polymer";
 import Base from "./_base.js";
-import "./main-create.js";
-import "./main-show.js";
-import "./main-edit.js";
+import "../layout/create-page.js";
+import "../layout/show-page.js";
+import "../layout/edit-page.js";
 import Api from "../entities/api.js";
 import {
   ToggleSection,
@@ -44,19 +44,33 @@ class MainWrapper extends Base {
 
       <template is="dom-if" if="{{isShowRoute(currentRoute)}}">
         <template is="dom-if" if="[[selectedItem]]">
-          <main-show class="main-container" data="[[selectedItem]]"></x-main-show>
+          <show-page class="main-container" data="[[selectedItem]]"></show-page>
         </template>
       </template>
       <template is="dom-if" if="{{isCreateRoute(currentRoute)}}">
-        <main-create class="main-container" on-dom-changed="_initializeClasses"></main-create>
+        <create-page class="main-container" on-dom-changed="_initializeClasses"></create-page>
       </template>
       <template is="dom-if" if="{{isEditRoute(currentRoute)}}">
-        <main-edit class="main-container" data="[[selectedItem]]"></main-edit>
+        <edit-page class="main-container" data="[[selectedItem]]"></edit-page>
       </template>
       <template is="dom-if" if="[[isBlank(currentRoute)]]">
       <div class='no_selected' >Зона не выбрана</div>
       </template>
     `;
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    this._loadFormations();
+  }
+
+  async _loadFormations() {
+    try {
+      const formations = JSON.parse(localStorage.getItem("filteredData")) || [];
+      console.log(formations);
+    } catch (error) {
+      console.error("Error initioalizing formations:", error);
+    }
   }
 
   async _selectedItemChanged(newItemId) {

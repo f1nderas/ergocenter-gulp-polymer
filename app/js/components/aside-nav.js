@@ -10,7 +10,6 @@ class AsideNav extends Base {
   }
 
   static get properties() {
-    console.dir(this);
     return {
       items: {
         type: Array,
